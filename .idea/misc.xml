@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AlphaTab">
+    <option name="truncate" value="false" />
+    <option name="highlight" value="true" />
+    <option name="numChars" value="15" />
+    <option name="caseSensitive" value="false" />
+  </component>
+  <component name="EclipseCodeFormatter">
+    <option name="defaultSettings" value="true" />
+    <option name="disabledFileTypes" value="js;" />
+    <option name="id" value="1388451941521" />
+    <option name="name" value="default" />
+    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../src/intellij/Nitro_Formatter.xml" />
+  </component>
+  <component name="IdProvider" IDEtalkID="22A334E8AB787591668A9BB439A0A375" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.7 (1)" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
+
