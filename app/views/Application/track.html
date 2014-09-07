@@ -1,0 +1,30 @@
+#{extends 'Application/index.html' /}
+#{set 'body'}
+
+<script>
+    $(function() {
+        //Set Navbar Menu Selections
+        $(".navbar-collapse .nav li").removeClass("active");
+        $(".navbar-collapse .nav .track").addClass("active");
+    });
+</script>
+
+
+<div class="page-header">
+    <h1>Dial</h1>
+</div>
+<p class="lead">
+    Please enter your phone number to receive a call from this app to listen to the Fizz Buzz Rap!
+</p>
+
+<form class="form-inline" role="form">
+    <div class="form-group">
+        <input type="tel" class="form-control input-xlarge" id="phone" placeholder="Enter Phone #" style="width:300px;">
+        <button type="submit" class="btn btn-primary">Call Me!</button>
+    </div>
+</form>
+
+<br>
+<br>
+<br>
+#{/set}}

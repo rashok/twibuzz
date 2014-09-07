@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Gather action="@{Application.readCallerInputDigit()}" method="POST" timeout="20" finishOnKey="#">
+        <Say voice="${controllers.TwilBuzzConstants.TWILIO_VOICE_PERSONA}">&{'msg.welcome'} &{'msg.request.number'}</Say>
+    </Gather>
+</Response>

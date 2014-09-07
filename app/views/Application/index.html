@@ -1,4 +1,43 @@
-#{extends 'main.html' /}
-#{set title:'Home' /}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="/public/javascripts/jquery.min.js"></script>
+    <link href="/public/stylesheets/main.css" rel="stylesheet">
+    <link href="/public/javascripts/bootstrap-3.2.0-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/public/javascripts/bootstrap-3.2.0-dist/css/bootstrap-theme.css" rel="stylesheet">
+</head>
+<body>
 
-#{welcome /}
+<div class="container">
+
+    <!-- Static navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Twil Buzz App</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="simple active"><a href="/playfizz">Simple TwiML</a></li>
+                    <li class="dial"><a href="/dial">Dial PhoneBuzz</a></li>
+                    <li class="delay"><a href="/delay">Delayed PhoneBuzz</a></li>
+                    <li class="track"><a href="/track">Tracking PhoneBuzz</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </div>
+</div> <!-- /container -->
+
+<!-- Begin page content -->
+<div class="container">
+    #{get 'body'/}
+</div>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="/public/javascripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+

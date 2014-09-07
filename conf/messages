@@ -1,3 +1,6 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+
+msg.welcome=Welcome to Twilio Buzz App.
+msg.request.number=Please enter a number of your choice and press pound key

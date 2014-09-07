@@ -4,6 +4,8 @@
       <root url="jar:///opt/play-1.2.6/framework/play-1.2.6.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/play-1.2.6-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
