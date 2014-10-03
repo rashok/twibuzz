@@ -1,14 +1,14 @@
 package controllers;
 
-import com.twilio.sdk.TwilioRestClient;
+import play.mvc.Before;
 import play.mvc.Controller;
 
 /**
- * Created by rashok on 9/5/14.
+ * Common Controller. Contains interceptors to validate headers.
  */
 public class CommonController extends Controller {
 
-    //    @play.mvc.Before(only = {"Application.play"})
+    @Before(only = {"Application.play"})
     static void validateHeaders() {
         if (!request.headers.containsKey("X-Twilio-Signature ")) {
             notFound();

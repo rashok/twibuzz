@@ -31,13 +31,12 @@ public class DataTableMapper {
                 entry.add(TwilBuzzConstants.INDEX_DURATION, log.duration == null ? "" : log.duration);
                 entry.add(TwilBuzzConstants.INDEX_DELAY, String.valueOf(log.delay));
                 entry.add(TwilBuzzConstants.INDEX_INPUT, StringUtils.isEmpty(log.input) ? "" : log.input);
+                entry.add(TwilBuzzConstants.INDEX_TYPE, log.type.name());
                 entry.add(TwilBuzzConstants.INDEX_ID, String.valueOf(log.id));
                 aaData.add(entry);
             }
         }
         result.setAaData(aaData);
-        int size = callLogList != null? callLogList.size() : 0;
-        result.setiTotalDisplayRecords(size);
         return result;
     }
 }

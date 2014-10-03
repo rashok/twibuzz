@@ -15,6 +15,9 @@ public final class TwilBuzzConstants {
     public static final int TWILIO_SEGMENT_LIMIT = 4096;
 
     public static final String BASE_URL = Play.configuration.getProperty("base.url");
+    public static final String WELCOME_URL = BASE_URL + "/" + "gather";
+    public static final String REPLAY_CALL = BASE_URL + "/" + "input";
+    public static final String CALL_END_CALLBACK_URL = BASE_URL + "/" + "history";
 
 
     // Call History Table Indexes
@@ -26,6 +29,7 @@ public final class TwilBuzzConstants {
     public static final int INDEX_DURATION = 5;
     public static final int INDEX_DELAY = 6;
     public static final int INDEX_INPUT = 7;
-    public static final int INDEX_ID = 8;
+    public static final int INDEX_TYPE = 8;
+    public static final int INDEX_ID = 9;
 
 }

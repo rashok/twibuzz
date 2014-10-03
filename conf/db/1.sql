@@ -1,11 +1,9 @@
+-- Hibernate Sequence for the app.
 CREATE SEQUENCE hibernate_sequence START WITH 1 INCREMENT BY 1;
-
-
-drop table call_log;
 
 CREATE TABLE call_log
 (
-    id            BIGINT                 NOT NULL,
+    id            BIGINT NOT NULL,
     sid           TEXT,
     ac_id         TEXT,
     status        CHARACTER VARYING(255),

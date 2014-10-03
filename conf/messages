@@ -3,4 +3,4 @@
 #
 
 msg.welcome=Welcome to Twilio Buzz App.
-msg.request.number=Please enter a number of your choice and press pound key
+msg.request.number=Please enter a number of your choice and press the pound key.

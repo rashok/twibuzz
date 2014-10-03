@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import play.Logger;
 
 /**
- * Created by rashok on 9/9/14.
+ * Util & Helper methods for validation etc.
  */
 public class TwilioUtil {
 

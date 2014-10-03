@@ -1,6 +1,9 @@
 package models;
 
 import com.twilio.sdk.resource.instance.Call;
+import play.db.jpa.JPA;
+import play.db.jpa.JPABase;
+import play.db.jpa.JPAPlugin;
 import play.db.jpa.Model;
 import utils.DataTableMapper;
 
@@ -65,7 +68,7 @@ public class CallLog extends Model {
                 '}';
     }
 
-    public static CallLog logCallHistory(Call call, long delay, CallType type) {
+    public static void logCallHistory(Call call, long delay, CallType type) {
         CallLog log = new CallLog();
         log.accountId = call.getAccountSid();
         log.callId = call.getSid();
@@ -74,11 +77,10 @@ public class CallLog extends Model {
         log.status = call.getStatus();
         log.duration = call.getDuration();
         log.delay = delay;
-        log.created = call.getDateCreated();
-        log.modified = call.getDateUpdated();
+        log.created = new Date();
+        log.modified = new Date();
         log.type = type;
         log.save();
-        return log;
     }
 
     public static CallLog findByCallSId(String callSid) {
@@ -94,6 +96,12 @@ public class CallLog extends Model {
             orderDir = "asc";
 
         switch (pagination.sortBy) {
+            case TwilBuzzConstants.INDEX_TYPE:
+                orderByQuery = "type";
+                break;
+            case TwilBuzzConstants.INDEX_CALL_ID:
+                orderByQuery = "sid";
+                break;
             case TwilBuzzConstants.INDEX_DELAY:
                 orderByQuery = "delay";
                 break;
@@ -123,7 +131,9 @@ public class CallLog extends Model {
 
         DataTableMapper mapper = new DataTableMapper();
         DataTableModel result = mapper.getDataTableModelFromCallHistoryList(callLogList);
+
         result.setiTotalRecords((int) totalCount);
+
         return result;
     }
 
