@@ -1,0 +1,88 @@
+<legend>Call History</legend>
+
+<div class="alert alert-danger alert-replay alert-dismissible" role="alert" style="display: none;">
+    <span id="replay_error"></span>
+</div>
+
+
+<table id="historyTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>Call ID</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Status</th>
+        <th>Created</th>
+        <th>Duration</th>
+        <th>Delay</th>
+        <th>User Input</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+
+    function refreshHistoryTable() {
+        var historyTable = $("#historyTable").dataTable( { bRetrieve : true } );
+        historyTable.fnStandingRedraw();
+    }
+
+    function replayCall(id) {
+        $.ajax({
+            url: '@{Application.replayCall()}',
+            beforeSend: function(){
+                $('.alert-replay').hide();
+            },
+            type:'POST',
+            data:  {
+                id : id
+            },
+            success: function(data){
+                if (data.status == '200') {
+                } else {
+                    $('#replay_error').text(data.message);
+                    $('.alert-replay').show();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#historyTable').dataTable( {
+            "bProcessing": true,
+            "bServerSide": true,
+            "iDisplayLength": 5,
+            "aaSorting": [[ ${models.TwilBuzzConstants.INDEX_CREATED}, "desc" ]],
+            "sDom": '<"top"<"clear">>rt<"bottom"pi>',
+            "oLanguage": {
+                "sProcessing" : "",
+                "sZeroRecords":  "No Calls Logged."
+            },
+            "fnInfoCallback": function (oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+                if (iTotal == 0) {
+                    return ""
+                }
+                return "Showing " + iStart + " to " + iEnd + " of " + iMax + " calls.";
+            },
+            "sAjaxSource": "@{Application.getCallHistoryList()}",
+            "bAutoWidth": false,
+            "aoColumnDefs":
+                    [
+                        {   "aTargets": [ ${models.TwilBuzzConstants.INDEX_ID} ],
+                            "bSearchable": false,
+                            "bSortable": false,
+                            "mRender": function ( data, type, full ) {
+                                var id = data + '';
+                                return '<a href="#" class="btn btn-info btn" onclick="replayCall('+id+'); return false;"><span class="glyphicon glyphicon-play"></span> Retry</a>';                            }
+                        }
+                    ]
+        });
+    });
+
+</script>

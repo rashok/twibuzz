@@ -3,11 +3,16 @@
 GET    /                                       Application.index
 GET    /playfizz                               Application.renderPlay
 GET    /gather                                 Application.gather
-POST   /gather                                 Application.gather
-GET    /dial                                   Application.dial
+GET    /delay                                  Application.renderDelay
+GET    /dial                                   Application.renderDial
+GET    /history                                Application.getCallHistoryList
 
+POST    /gather                                Application.gather
 POST    /input                                 Application.readCallerInputDigit
-POST    /callMe                                Application.callMe
+POST    /callnow                               Application.callMeNow
+POST    /calldelay                             Application.callMeDelayed
+POST    /history                               Application.postCallEndEvent
+POST    /replay                                Application.replayCall
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

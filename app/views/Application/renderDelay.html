@@ -1,0 +1,102 @@
+#{extends 'Application/index.html' /}
+#{set 'body'}
+
+<script>
+    $(function() {
+        //Set Navbar Menu Selections
+        $(".navbar-collapse .nav li").removeClass("active");
+        $(".navbar-collapse .nav .delay").addClass("active");
+    });
+</script>
+
+
+<div class="page-header">
+    <h1>Delayed Phone Buzz</h1>
+</div>
+<p class="lead">
+    Please enter your phone number to receive a call after the specified delay.
+</p>
+
+<form role="form" method="POST" id="callme">
+    <div class="form-group">
+        <label for="delay">Delay (In Seconds)</label>
+        <input class="form-control" style="width:200px;" id="delay" placeholder="Enter Delay in Seconds" >
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input class="form-control" required="true" style="width:300px;" id="phone" placeholder="Enter Phone Number">
+    </div>
+    <button type="submit" class="btn btn-primary call-btn">Call Me!</button>
+    <img id="progressLoader" src="/public/images/loader.gif" style="display: none;">
+</form>
+
+<br>
+
+<div class="alert alert-danger alert-dismissible" role="alert" style="display:none;">
+    <span id="error_msg"></span>
+</div>
+
+<div class="alert alert-success alert-dismissible" role="alert" style="display:none;">
+    <span id="success_msg"></span>
+</div>
+
+<div id="call_history">
+    <br>
+    <br>
+    #{application.callHistory /}
+</div>
+
+<script>
+
+    $(function() {
+
+        $('#callme').bind('submit', function(event) {
+            $('.alert-success').hide();
+            $('.alert-danger').hide();
+            event.preventDefault();
+            var str = jQuery.trim($('#phone').val());
+            var delay = jQuery.trim($('#delay').val());
+
+            //Validate the delay
+            var regExNum = new RegExp('^\\d+$');
+            if (!regExNum.test(delay)) {
+                $('#error_msg').text("Invalid Delay Input.");
+                $('.alert-danger').show();
+                return false;
+            }
+
+            $.ajax( {
+                url: '@{Application.callMeDelayed()}',
+                type:'POST',
+                data: {
+                    phone : str,
+                    delay : delay
+                },
+                beforeSend: function(){
+                    $("#progressLoader").show();
+                    $('.call-btn').attr('disabled', true);
+                },
+                success: function(data) {
+                    console.log (data);
+                    if (data.status == '200') {
+                        refreshHistoryTable();
+                        $('#success_msg').text(data.message);
+                        $('.alert-success').show();
+                    } else {
+                        $('#error_msg').text(data.message);
+                        $('.alert-danger').show();
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            }).done(function () {
+                $('.call-btn').attr('disabled', false);
+                $("#progressLoader").hide();
+            });
+
+        });
+    });
+</script>
+
+#{/set}

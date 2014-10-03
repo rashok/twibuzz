@@ -3,3 +3,4 @@
 require:
     - play
     - com.twilio.sdk -> twilio-java-sdk 3.4.5
+    - com.googlecode.libphonenumber -> libphonenumber 6.2.2

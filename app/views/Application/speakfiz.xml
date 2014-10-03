@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Say voice="${controllers.TwilBuzzConstants.TWILIO_VOICE_PERSONA}">${fizBuzz}</Say>
+    #{list items: saySegments, as: "segment"}
+        <Say voice="${models.TwilBuzzConstants.TWILIO_VOICE_PERSONA}">${segment}</Say>
+    #{/list}
 </Response>
