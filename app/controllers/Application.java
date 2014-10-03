@@ -67,7 +67,7 @@ public class Application extends CommonController {
 
         //Check the size of the segment. Responses in Twilio have to be less than 64KB.
         final byte[] utfBytes = segment.getBytes();
-        ArrayList<String> saySegments = new ArrayList<>();
+        ArrayList<String> saySegments = new ArrayList<String>();
 
         if (utfBytes.length > 65535) {
             saySegments.add("Input number is too large. Twilio Responses cannot be larger than 64 kilo bytes.");
