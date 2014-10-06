@@ -17,6 +17,7 @@ This App was developed using the below frameworks:
 * [Twitter Bootstrap 3.2] - great UI boilerplate for modern web apps
 * [JQuery Datatables]
 * [Pagekite] - Localhost tunneling. Make localhost:9000 public!
+* [Libphonenumber] - Google Library for phone number validation, formatting and parsing
 * jQuery
 * Heroku - For deployment.
 * PostGresSQL - Postgres Database add on from Heroku.
@@ -68,3 +69,4 @@ The app has been deployed on Heroku - http://twilio-buzz-app.herokuapp.com
 [JQuery Datatables]:http://www.datatables.net/
 [Play Framework 1.2.7]:https://www.playframework.com/
 [Pagekite]:https://pagekite.net/downloads/
+[Libphonenumber]:https://code.google.com/p/libphonenumber/
