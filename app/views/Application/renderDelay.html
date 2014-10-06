@@ -32,11 +32,11 @@
 
 <br>
 
-<div class="alert alert-danger alert-dismissible" role="alert" style="display:none;">
+<div class="alert alert-danger call-error alert-dismissible" role="alert" style="display:none;">
     <span id="error_msg"></span>
 </div>
 
-<div class="alert alert-success alert-dismissible" role="alert" style="display:none;">
+<div class="alert alert-success call-ok alert-dismissible" role="alert" style="display:none;">
     <span id="success_msg"></span>
 </div>
 
@@ -51,8 +51,8 @@
     $(function() {
 
         $('#callme').bind('submit', function(event) {
-            $('.alert-success').hide();
-            $('.alert-danger').hide();
+            $('.call-ok').hide();
+            $('.call-error').hide();
             event.preventDefault();
             var str = jQuery.trim($('#phone').val());
             var delay = jQuery.trim($('#delay').val());
@@ -81,13 +81,15 @@
                     if (data.status == '200') {
                         refreshHistoryTable();
                         $('#success_msg').text(data.message);
-                        $('.alert-success').show();
+                        $('.call-ok').show();
                     } else {
                         $('#error_msg').text(data.message);
-                        $('.alert-danger').show();
+                        $('.call-error').show();
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
+                    $('#error_msg').text(data.message);
+                    $('.call-error').show();
                     console.log(errorThrown);
                 }
             }).done(function () {

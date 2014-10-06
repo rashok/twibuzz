@@ -8,9 +8,9 @@ import play.mvc.Controller;
  */
 public class CommonController extends Controller {
 
-    @Before(only = {"Application.play"})
+    @Before(only = {"Application.gather"})
     static void validateHeaders() {
-        if (!request.headers.containsKey("X-Twilio-Signature ")) {
+        if (!request.headers.containsKey("x-twilio-signature")) {
             notFound();
         }
     }

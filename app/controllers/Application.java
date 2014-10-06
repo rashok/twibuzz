@@ -17,6 +17,7 @@ import service.TwilioService;
 import utils.FizzBuzzUtil;
 import utils.TwilioUtil;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -60,7 +61,10 @@ public class Application extends CommonController {
 
     public static void readCallerInputDigit(String Digits, String CallSid) {
         Logger.debug("Reading Out Fizz Buzz..");
-        String fizBuzz = FizzBuzzUtil.speakFizBuzz(Integer.valueOf(Digits));
+
+        //Input digits could contain special characters. Parse the input and extract the actual digits.
+        String inputDigit = Digits.replaceAll("[^0-9]", "");
+        String fizBuzz = FizzBuzzUtil.speakFizBuzz(Integer.parseInt(inputDigit));
 
         //Twilio Say Segment Limit - Break down the string into segments with less than 4096 characters.
         String segment = WordUtils.wrap(fizBuzz, TwilBuzzConstants.TWILIO_SEGMENT_LIMIT, "\n", false);
@@ -80,7 +84,7 @@ public class Application extends CommonController {
 
         CallLog callLog = CallLog.findByCallSId(CallSid);
         if (callLog != null) {
-            callLog.input = Digits;
+            callLog.input = inputDigit;
             callLog.save();
         }
 
@@ -174,9 +178,9 @@ public class Application extends CommonController {
         CallFactory callFactory = mainAccount.getCallFactory();
 
         CallSettings settings = new CallSettings();
+        String inputDigit = URLEncoder.encode("wwww" + callEntry.input + "#");   //2 sec delay
         settings.To = callEntry.who;
-        settings.Url = TwilBuzzConstants.REPLAY_CALL+"?Digits=" + callEntry.input + "&CallSid=" + callEntry.callId;
-        settings.SendDigits = callEntry.input;
+        settings.Url = TwilBuzzConstants.REPLAY_CALL + "?CallSid=" + callEntry.callId + "&Digits=" + inputDigit;
 
         scheduleCall(callFactory, settings, callEntry.delay, true, CallLog.CallType.REPLAY);
 
@@ -188,16 +192,16 @@ public class Application extends CommonController {
      * nothing needs to be done.
      *
      * @param CallSid
-     * @param Duration
+     * @param CallDuration
      * @param CallStatus
      * @param log
      */
-    public static void postCallEndEvent(String CallSid, String Duration, String CallStatus, boolean log) {
+    public static void postCallEndEvent(String CallSid, String CallDuration, String CallStatus, boolean log) {
         if (log) {
             Logger.debug("Logging Call History after the call has ended.");
             CallLog callLog = CallLog.findByCallSId(CallSid);
             if (callLog != null) {
-                callLog.duration = Duration;
+                callLog.duration = CallDuration;
                 callLog.status = CallStatus;
                 callLog.modified = new Date();
                 callLog.save();
